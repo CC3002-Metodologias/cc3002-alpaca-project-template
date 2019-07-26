@@ -41,6 +41,11 @@ public abstract class AbstractUnit implements IUnit {
   }
 
   @Override
+  public void equipWeapon(final IWeapon weapon) {
+
+  }
+
+  @Override
   public int getHitPoints() {
     return hitPoints;
   }
@@ -68,10 +73,5 @@ public abstract class AbstractUnit implements IUnit {
   @Override
   public void setEquippedWeapon(final IWeapon weapon) {
     this.equippedWeapon = weapon;
-  }
-
-  @Override
-  public void equipWeapon(final IWeapon weapon) {
-
   }
 }

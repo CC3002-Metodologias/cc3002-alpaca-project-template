@@ -1,5 +1,7 @@
 package model.items;
 
+import model.units.IUnit;
+
 /**
  * @author Ignacio Slater Muñoz
  * @since
@@ -29,5 +31,20 @@ public class Axe implements IWeapon {
 
   public int getMaxRange() {
     return maxRange;
+  }
+
+  @Override
+  public void equipTo(final IUnit playerFighter) {
+
+  }
+
+  @Override
+  public void attack(final Axe axe) {
+
+  }
+
+  @Override
+  public IUnit getOwner() {
+    return null;
   }
 }

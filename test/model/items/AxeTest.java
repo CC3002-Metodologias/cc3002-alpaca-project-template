@@ -2,6 +2,9 @@ package model.items;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import model.map.Location;
+import model.units.Fighter;
+import model.units.IUnit;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,6 +35,18 @@ class AxeTest {
     assertEquals(5, hatchet.getBaseDamage());
     assertEquals(1, hatchet.getMinRange());
     assertEquals(2, hatchet.getMaxRange());
+  }
+
+  @Test
+  public void attackAxeTest() {
+    IUnit playerFighter = new Fighter(10, 5, new Location('A', 0));
+    IUnit opponentFighter = new Fighter(5, 7, new Location('A', 1));
+    axe.equipTo(playerFighter);
+    hatchet.equipTo(opponentFighter);
+    hatchet.attack(axe);
+    assertEquals(5, axe.getOwner().getHitPoints());
+    axe.attack(hatchet);
+    assertEquals(0, axe.getOwner().getHitPoints());
   }
 
   @AfterEach
