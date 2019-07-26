@@ -34,7 +34,7 @@ public class AlpacaTest {
   @Test
   public void equipWeaponTest() {
     assertNull(alpaca.getEquippedWeapon());
-    alpaca.equipWeapon(new Axe(10, 1));
+    alpaca.equipWeapon(new Axe("Axe", 10, 1, 1));
   }
 
   @AfterEach
