@@ -6,7 +6,7 @@ import model.units.IUnit;
  * @author Ignacio Slater Muñoz
  * @since
  */
-public class Axe implements IWeapon {
+public class Axe implements IEquipableItem {
 
   private int baseDamage;
   private int minRange;

@@ -1,7 +1,7 @@
 package model.units;
 
 import java.util.List;
-import model.items.IWeapon;
+import model.items.IEquipableItem;
 import model.map.Location;
 
 /**
@@ -15,36 +15,19 @@ import model.map.Location;
  */
 public interface IUnit {
 
-  void equipWeapon(IWeapon weapon);
+  void equipItem(IEquipableItem weapon);
 
-  /**
-   * @return the current hit points of the unit
-   */
-  int getHitPoints();
+  abstract int getHitPoints();
 
-  /**
-   * @return the amount of panels this unit can move
-   */
-  int getMovement();
+  abstract int getMovement();
 
-  /**
-   * @return the current location of this unit
-   */
-  Location getLocation();
+  abstract Location getLocation();
 
-  /**
-   * @return the list of weapons this unit has
-   */
-  List<IWeapon> getWeapons();
+  abstract List<IEquipableItem> getWeapons();
 
-  /**
-   * @return the unit's currently equipped weapon
-   */
-  IWeapon getEquippedWeapon();
+  abstract IEquipableItem getEquippedItem();
 
-  /**
-   * @param weapon
-   *     the weapon that wants to be equipped to the unit
-   */
-  void setEquippedWeapon(IWeapon weapon);
+  abstract void setEquippedWeapon(IEquipableItem weapon);
+
+  void useItemOn(IUnit target);
 }

@@ -2,7 +2,7 @@ package model.units;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.items.IWeapon;
+import model.items.IEquipableItem;
 import model.map.Location;
 
 /**
@@ -17,11 +17,11 @@ import model.map.Location;
  */
 public abstract class AbstractUnit implements IUnit {
 
-  protected final List<IWeapon> weapons = new ArrayList<>();
+  protected final List<IEquipableItem> weapons = new ArrayList<>();
   private final int hitPoints;
   private final int movement;
   private final Location location;
-  private IWeapon equippedWeapon;
+  private IEquipableItem equippedWeapon;
 
   /**
    * Creates a new Unit.
@@ -41,7 +41,7 @@ public abstract class AbstractUnit implements IUnit {
   }
 
   @Override
-  public void equipWeapon(final IWeapon weapon) {
+  public void equipItem(final IEquipableItem weapon) {
 
   }
 
@@ -61,17 +61,22 @@ public abstract class AbstractUnit implements IUnit {
   }
 
   @Override
-  public List<IWeapon> getWeapons() {
+  public List<IEquipableItem> getWeapons() {
     return weapons;
   }
 
   @Override
-  public IWeapon getEquippedWeapon() {
+  public IEquipableItem getEquippedItem() {
     return equippedWeapon;
   }
 
   @Override
-  public void setEquippedWeapon(final IWeapon weapon) {
+  public void setEquippedWeapon(final IEquipableItem weapon) {
     this.equippedWeapon = weapon;
+  }
+
+  @Override
+  public void useItemOn(final IUnit target) {
+
   }
 }

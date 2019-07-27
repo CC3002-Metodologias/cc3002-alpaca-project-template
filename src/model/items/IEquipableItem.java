@@ -11,11 +11,19 @@ import model.units.IUnit;
  * @author Ignacio Slater Muñoz
  * @since 1.0
  */
-public interface IWeapon {
+public interface IEquipableItem {
 
   void equipTo(IUnit playerFighter);
 
   void attack(Axe axe);
 
   IUnit getOwner();
+
+  String getName();
+
+  int getBaseDamage();
+
+  int getMinRange();
+
+  int getMaxRange();
 }

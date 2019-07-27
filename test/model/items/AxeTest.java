@@ -5,36 +5,39 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import model.map.Location;
 import model.units.Fighter;
 import model.units.IUnit;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
  * @author Ignacio Slater Muñoz
  * @since 1.0
  */
-class AxeTest {
+class AxeTest extends AbstractTestItem {
 
   private Axe axe;
   private Axe hatchet;
 
-  @BeforeEach
-  void setUp() {
+  @Override
+  public void setTestItem() {
+    expectedName = "Common axe";
+    expectedBaseDamage = 10;
+    expectedMinRange = 1;
+    expectedMaxRange = 1;
     axe = new Axe("Common axe", 10, 1, 1);
+  }
+
+  @Override
+  public void setSecondaryTestItem() {
     hatchet = new Axe("Hatchet", 5, 1, 2);
   }
 
-  @Test
-  public void constructorTest() {
-    assertEquals("Common axe", axe.getName());
-    assertEquals(10, axe.getBaseDamage());
-    assertEquals(1, axe.getMinRange());
-    assertEquals(1, axe.getMaxRange());
+  @Override
+  public IEquipableItem getTestItem() {
+    return axe;
+  }
 
-    assertEquals("Hatchet", hatchet.getName());
-    assertEquals(5, hatchet.getBaseDamage());
-    assertEquals(1, hatchet.getMinRange());
-    assertEquals(2, hatchet.getMaxRange());
+  // TODO: Remove secondary item and move it to a child class
+  public IEquipableItem getSecondaryTestWeapon() {
+    return hatchet;
   }
 
   @Test
@@ -47,9 +50,5 @@ class AxeTest {
     assertEquals(5, axe.getOwner().getHitPoints());
     axe.attack(hatchet);
     assertEquals(0, axe.getOwner().getHitPoints());
-  }
-
-  @AfterEach
-  void tearDown() {
   }
 }

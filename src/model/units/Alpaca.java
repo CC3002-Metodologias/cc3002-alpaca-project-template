@@ -1,6 +1,5 @@
 package model.units;
 
-import model.items.IWeapon;
 import model.map.Location;
 
 /**
