@@ -9,7 +9,7 @@ package model.items;
 public abstract class AbstractTestItem implements ITestItem {
 
   protected String expectedName;
-  protected int expectedBaseDamage;
+  protected int expectedPower;
   protected int expectedMinRange;
   protected short expectedMaxRange;
 
@@ -20,7 +20,7 @@ public abstract class AbstractTestItem implements ITestItem {
 
   @Override
   public int getExpectedBasePower() {
-    return expectedBaseDamage;
+    return expectedPower;
   }
 
   @Override

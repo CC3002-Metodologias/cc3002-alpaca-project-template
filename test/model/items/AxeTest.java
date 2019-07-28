@@ -13,10 +13,10 @@ class AxeTest extends AbstractTestItem {
   @Override
   public void setTestItem() {
     expectedName = "Common axe";
-    expectedBaseDamage = 10;
+    expectedPower = 10;
     expectedMinRange = 1;
     expectedMaxRange = 2;
-    axe = new Axe(expectedName, expectedBaseDamage, expectedMinRange, expectedMaxRange);
+    axe = new Axe(expectedName, expectedPower, expectedMinRange, expectedMaxRange);
   }
 
   @Override

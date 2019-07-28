@@ -16,10 +16,10 @@ public class SpearTest extends AbstractTestItem {
   @Override
   public void setTestItem() {
     expectedName = "Javelin";
-    expectedBaseDamage = 10;
+    expectedPower = 10;
     expectedMinRange = 1;
     expectedMaxRange = 3;
-    javelin = new Spear(expectedName, expectedBaseDamage, expectedMinRange, expectedMaxRange);
+    javelin = new Spear(expectedName, expectedPower, expectedMinRange, expectedMaxRange);
   }
 
   /**

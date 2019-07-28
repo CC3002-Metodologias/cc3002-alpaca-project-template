@@ -1,25 +1,25 @@
 package model.items;
 
 /**
- * Test set for swords
+ * Test set for staffs
  *
  * @author Ignacio Slater Muñoz
  * @since 1.0
  */
-public class SwordTest extends AbstractTestItem {
+public class StaffTest extends AbstractTestItem {
 
-  private Sword sword;
+  private Staff staff;
 
   /**
    * Sets which item is going to be tested
    */
   @Override
   public void setTestItem() {
-    expectedName = "Common sword";
-    expectedPower = 10;
+    expectedName = "Common staff";
+    expectedPower = 5;
     expectedMinRange = 1;
     expectedMaxRange = 1;
-    sword = new Sword(expectedName, expectedPower, expectedMinRange, expectedMaxRange);
+    staff = new Staff(expectedName, expectedPower, expectedMinRange, expectedMaxRange);
   }
 
   /**
@@ -27,6 +27,6 @@ public class SwordTest extends AbstractTestItem {
    */
   @Override
   public IEquipableItem getTestItem() {
-    return sword;
+    return staff;
   }
 }
