@@ -17,8 +17,9 @@ public class Axe implements IEquipableItem {
       final int maxRange) {
   }
 
-  public int getBaseDamage() {
-    return baseDamage;
+  @Override
+  public void equipTo(final IUnit unit) {
+
   }
 
   public int getMinRange() {
@@ -33,14 +34,8 @@ public class Axe implements IEquipableItem {
     return maxRange;
   }
 
-  @Override
-  public void equipTo(final IUnit playerFighter) {
-
-  }
-
-  @Override
-  public void attack(final Axe axe) {
-
+  public int getPower() {
+    return baseDamage;
   }
 
   @Override

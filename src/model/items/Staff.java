@@ -1,48 +1,29 @@
 package model.items;
 
-import model.units.IUnit;
-
 /**
+ * This class represents a <i>Staff</i> type item.
+ * <p>
+ * A staff is an item that can heal other units nut cannot counter any attack
+ *
  * @author Ignacio Slater Muñoz
- * @since
+ * @since 1.0
  */
-public class Staff implements IEquipableItem {
+public class Staff extends AbstractItem {
 
-  public Staff(final String name, final int baseDamage, final int minRange, final int maxRange) {
+  /**
+   * Creates a new Staff item.
+   *
+   * @param name
+   *     the name of the staff
+   * @param power
+   *     the healing power of the staff
+   * @param minRange
+   *     the minimum range of the staff
+   * @param maxRange
+   *     the maximum range of the staff
+   */
+  public Staff(final String name, final int power, final int minRange, final int maxRange) {
+    super(name, power, minRange, maxRange);
   }
 
-  @Override
-  public void equipTo(final IUnit playerFighter) {
-
-  }
-
-  @Override
-  public void attack(final Axe axe) {
-
-  }
-
-  @Override
-  public IUnit getOwner() {
-    return null;
-  }
-
-  @Override
-  public String getName() {
-    return null;
-  }
-
-  @Override
-  public int getBaseDamage() {
-    return 0;
-  }
-
-  @Override
-  public int getMinRange() {
-    return 0;
-  }
-
-  @Override
-  public int getMaxRange() {
-    return 0;
-  }
 }

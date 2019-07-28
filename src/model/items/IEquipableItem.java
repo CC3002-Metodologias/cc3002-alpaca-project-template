@@ -13,17 +13,36 @@ import model.units.IUnit;
  */
 public interface IEquipableItem {
 
-  void equipTo(IUnit playerFighter);
+  /**
+   * Equips this item to a unit.
+   *
+   * @param unit
+   *     the unit that will be quipped with the item
+   */
+  void equipTo(IUnit unit);
 
-  void attack(Axe axe);
-
+  /**
+   * @return the unit that has currently equipped this item
+   */
   IUnit getOwner();
 
+  /**
+   * @return the name of the item
+   */
   String getName();
 
-  int getBaseDamage();
+  /**
+   * @return the power of the item
+   */
+  int getPower();
 
+  /**
+   * @return the minimum range of the item
+   */
   int getMinRange();
 
+  /**
+   * @return the maximum range of the item
+   */
   int getMaxRange();
 }

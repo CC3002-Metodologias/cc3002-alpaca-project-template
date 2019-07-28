@@ -36,7 +36,7 @@ public interface ITestItem {
   @Test
   default void constructorTest() {
     Assertions.assertEquals(getExpectedName(), getTestItem().getName());
-    Assertions.assertEquals(getExpectedBasePower(), getTestItem().getBaseDamage());
+    Assertions.assertEquals(getExpectedBasePower(), getTestItem().getPower());
     Assertions.assertEquals(getExpectedMinRange(), getTestItem().getMinRange());
     Assertions.assertEquals(getExpectedMaxRange(), getTestItem().getMaxRange());
   }

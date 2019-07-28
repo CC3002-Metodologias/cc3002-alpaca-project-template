@@ -12,12 +12,7 @@ public class Spear implements IEquipableItem {
   }
 
   @Override
-  public void equipTo(final IUnit playerFighter) {
-
-  }
-
-  @Override
-  public void attack(final Axe axe) {
+  public void equipTo(final IUnit unit) {
 
   }
 
@@ -32,7 +27,7 @@ public class Spear implements IEquipableItem {
   }
 
   @Override
-  public int getBaseDamage() {
+  public int getPower() {
     return 0;
   }
 
