@@ -1,5 +1,7 @@
 package model.items;
 
+import model.units.IUnit;
+
 /**
  * Test set for staffs
  *
@@ -23,10 +25,39 @@ public class StaffTest extends AbstractTestItem {
   }
 
   /**
+   * Sets up an item with wrong ranges setted.
+   */
+  @Override
+  public void setWrongRangeItem() {
+
+  }
+
+  /**
+   * Sets the unit that will be equipped with the test item
+   */
+  @Override
+  public void setTestUnit() {
+
+  }
+
+  @Override
+  public IEquipableItem getWrongTestItem() {
+    return null;
+  }
+
+  /**
    * @return the item being tested
    */
   @Override
   public IEquipableItem getTestItem() {
     return staff;
+  }
+
+  /**
+   * @return a unit that can equip the item being tested
+   */
+  @Override
+  public IUnit getTestUnit() {
+    return null;
   }
 }

@@ -1,45 +1,28 @@
 package model.items;
 
-import model.units.IUnit;
-
 /**
+ * This class represents an Axe.
+ * <p>
+ * Axes are strong against spears but weak agains swords.
+ *
  * @author Ignacio Slater Muñoz
- * @since
+ * @since 1.0
  */
-public class Axe implements IEquipableItem {
+public class Axe extends AbstractItem {
 
-  private int baseDamage;
-  private int minRange;
-  private String name;
-  private int maxRange;
-
-  public Axe(final String name, final int baseDamage, final int minRange,
-      final int maxRange) {
-  }
-
-  @Override
-  public void equipTo(final IUnit unit) {
-
-  }
-
-  public int getMinRange() {
-    return minRange;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public int getMaxRange() {
-    return maxRange;
-  }
-
-  public int getPower() {
-    return baseDamage;
-  }
-
-  @Override
-  public IUnit getOwner() {
-    return null;
+  /**
+   * Creates a new Axe item
+   *
+   * @param name
+   *     the name of the Axe
+   * @param power
+   *     the damage of the axe
+   * @param minRange
+   *     the minimum range of the axe
+   * @param maxRange
+   *     the maximum range of the axe
+   */
+  public Axe(final String name, final int power, final int minRange, final int maxRange) {
+    super(name, power, minRange, maxRange);
   }
 }

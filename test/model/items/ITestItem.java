@@ -2,10 +2,9 @@ package model.items;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import model.map.Location;
-import model.units.Fighter;
-import org.junit.jupiter.api.Assertions;
+import model.units.IUnit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,27 +17,50 @@ import org.junit.jupiter.api.Test;
 public interface ITestItem {
 
   /**
-   * Sets up the item to be tested
+   * Sets up the items to be tested
    */
   @BeforeEach
   default void setUp() {
     setTestItem();
+    setWrongRangeItem();
+    setTestUnit();
   }
 
   /**
-   * Sets which item is going to be tested
+   * Sets up a correctly implemented item that's going to be tested
    */
   void setTestItem();
+
+  /**
+   * Sets up an item with wrong ranges setted.
+   */
+  void setWrongRangeItem();
+
+  /**
+   * Sets the unit that will be equipped with the test item
+   */
+  void setTestUnit();
+
+  /**
+   * Checks that the tested item cannot have ranges outside of certain bounds.
+   */
+  @Test
+  default void incorrectRangeTest() {
+    assertTrue(getWrongTestItem().getMinRange() >= 0);
+    assertTrue(getWrongTestItem().getMaxRange() >= getWrongTestItem().getMinRange());
+  }
+
+  IEquipableItem getWrongTestItem();
 
   /**
    * Tests that the constructor for the tested item works properly
    */
   @Test
   default void constructorTest() {
-    Assertions.assertEquals(getExpectedName(), getTestItem().getName());
-    Assertions.assertEquals(getExpectedBasePower(), getTestItem().getPower());
-    Assertions.assertEquals(getExpectedMinRange(), getTestItem().getMinRange());
-    Assertions.assertEquals(getExpectedMaxRange(), getTestItem().getMaxRange());
+    assertEquals(getExpectedName(), getTestItem().getName());
+    assertEquals(getExpectedBasePower(), getTestItem().getPower());
+    assertEquals(getExpectedMinRange(), getTestItem().getMinRange());
+    assertEquals(getExpectedMaxRange(), getTestItem().getMaxRange());
   }
 
   /**
@@ -72,8 +94,13 @@ public interface ITestItem {
   @Test
   default void equippedToTest() {
     assertNull(getTestItem().getOwner());
-    Fighter fighter = new Fighter(10, 5, new Location('A', 0));
-    getTestItem().equipTo(fighter);
-    assertEquals(fighter, getTestItem().getOwner());
+    IUnit unit = getTestUnit();
+    getTestItem().equipTo(unit);
+    assertEquals(unit, getTestItem().getOwner());
   }
+
+  /**
+   * @return a unit that can equip the item being tested
+   */
+  IUnit getTestUnit();
 }
