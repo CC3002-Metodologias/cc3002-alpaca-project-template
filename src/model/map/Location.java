@@ -1,15 +1,16 @@
 package model.map;
 
+import java.util.HashSet;
 import java.util.Set;
+import model.units.IUnit;
 
 /**
  * This class represents a <i>location</i> in the game's map.
  * <p>
  * A location is simply a graph node with connections to all adjacent positions to it. Every node
  * in the graph contains an id that represents it's position, with rows represented as characters
- * and columns with numbers (just like in a chess table), a list of references and distances to all
- * of it's neighbours and a reference to the unit that's currently in that position (in case there
- * is one).
+ * and columns with numbers (just like in a chess table), a list of references to all of it's
+ * neighbours and a reference to the unit that's currently in that position (in case there is one).
  * <p>
  * Note that a structure like this let's it's user implement more complicated maps than a simple
  * chess one, but for simplicity, it will be assumed that the distance between any node and it's
@@ -20,24 +21,90 @@ import java.util.Set;
  */
 public class Location {
 
-  private Set<Location> neighbours;
+  private final int row;
+  private final int column;
+  private final String id;
+  private Set<Location> neighbours = new HashSet<>();
+  private IUnit unit;
 
-  public Location(final char row, final int column) {
+  /**
+   * Creates a new location of the game map.
+   *
+   * @param row
+   *     a char representing a row in the map
+   * @param column
+   *     an int representing the column in the map
+   */
+  public Location(final int row, final int column) {
+    this.row = row;
+    this.column = column;
+    id = "(" + row + ", " + column + ")";
+  }
+
+  /**
+   * Checks if a location is equal to another object.
+   * <p>
+   * Two locations are equal when their id's match. It is assumed that there can't be 2 locations
+   * with the same id in the game.
+   *
+   * @param other
+   *     the object to compare this location to
+   * @return <code>true</code> if the id's match; <code>false</code> otherwise
+   */
+  @Override
+  public boolean equals(final Object other) {
+    return other instanceof Location && row == ((Location) other).row
+        && column == ((Location) other).column;
   }
 
   @Override
-  public boolean equals(final Object other) {
-    return other instanceof Location;
+  public String toString() {
+    return id;
   }
 
+  /**
+   * @return a hash set of this location adjacent cells
+   */
   public Set<Location> getNeighbours() {
     return neighbours;
   }
 
+  /**
+   * Sets a location as adjacent to this one
+   *
+   * @param neighbour
+   *     the location to be added
+   */
   public void addNeighbour(final Location neighbour) {
+    neighbours.add(neighbour);
+    neighbour.neighbours.add(this);
   }
 
+  /**
+   * Checks if a cell is adjacent to this one
+   *
+   * @param otherLocation
+   *     the cell to be checked
+   * @return <code>true</code> if the two locations are adjacent; <code>false</code> otherwise
+   */
   boolean isNeighbour(final Location otherLocation) {
-    return false;
+    return neighbours.contains(otherLocation);
+  }
+
+  /**
+   * @return the unit currently located in this cell
+   */
+  public IUnit getUnit() {
+    return unit;
+  }
+
+  /**
+   * Setter for the unit contained in this location.
+   *
+   * @param unit
+   *     the unit to be placed in this cell
+   */
+  public void setUnit(final IUnit unit) {
+    this.unit = unit;
   }
 }

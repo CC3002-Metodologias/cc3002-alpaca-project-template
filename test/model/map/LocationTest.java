@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,18 +22,23 @@ class LocationTest {
 
   @BeforeEach
   void setUp() {
-    locationA0 = new Location('A', 0);
-    locationB0 = new Location('B', 0);
-    locationA1 = new Location('A', 1);
+    locationA0 = new Location(0, 0);
+    locationB0 = new Location(1, 0);
+    locationA1 = new Location(0, 1);
   }
 
-  @AfterEach
-  void tearDown() {
+  /**
+   * Tests that the id of the locations can be retrieved correctly
+   */
+  @Test
+  public void testLocationId() {
+    assertEquals("(0, 0)", locationA0.toString());
+    assertEquals("(1, 0)", locationB0.toString());
   }
 
   @Test
   void testEquals() {
-    Location sameLocation = new Location('A', 0);
+    Location sameLocation = new Location(0, 0);
     assertEquals(sameLocation, locationA0);
     assertNotEquals(locationA1, locationA0);
     assertNotEquals(locationB0, locationA0);

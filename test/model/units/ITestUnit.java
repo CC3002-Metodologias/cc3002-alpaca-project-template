@@ -26,11 +26,14 @@ public interface ITestUnit {
   default void setUp() {
     setTestUnit();
     setTargetAlpaca(new Alpaca(50, 10, new Location('A', 1)));
+    setAxe(new Axe("Axe", 10, 1, 1));
   }
 
   void setTestUnit();
 
   void setTargetAlpaca(Alpaca alpaca);
+
+  void setAxe(Axe axe);
 
   @Test
   default void constructorTest() {

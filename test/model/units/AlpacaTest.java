@@ -15,6 +15,7 @@ public class AlpacaTest extends AbstractTestUnit {
 
   private Alpaca alpaca;
 
+  // TODO: Documentar
   @Override
   public void setTestUnit() {
     alpaca = new Alpaca(50, 10, new Location('A', 0));
@@ -33,6 +34,11 @@ public class AlpacaTest extends AbstractTestUnit {
    */
   public void checkEquippedItem(IEquipableItem expectedItem) {
     assertNull(alpaca.getEquippedItem());
+  }
+
+  @Test
+  public void testChangeItems() {
+
   }
 
   @Override
