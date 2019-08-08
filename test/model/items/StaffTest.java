@@ -1,5 +1,7 @@
 package model.items;
 
+import model.map.Location;
+import model.units.Cleric;
 import model.units.IUnit;
 
 /**
@@ -11,6 +13,8 @@ import model.units.IUnit;
 public class StaffTest extends AbstractTestItem {
 
   private Staff staff;
+  private Staff wrongStaff;
+  private Cleric cleric;
 
   /**
    * Sets which item is going to be tested
@@ -29,7 +33,7 @@ public class StaffTest extends AbstractTestItem {
    */
   @Override
   public void setWrongRangeItem() {
-
+    wrongStaff = new Staff("Wrong staff", 0, -1, -2);
   }
 
   /**
@@ -37,12 +41,12 @@ public class StaffTest extends AbstractTestItem {
    */
   @Override
   public void setTestUnit() {
-
+    cleric = new Cleric(10, 5, new Location(0, 0));
   }
 
   @Override
   public IEquipableItem getWrongTestItem() {
-    return null;
+    return wrongStaff;
   }
 
   /**
@@ -58,6 +62,6 @@ public class StaffTest extends AbstractTestItem {
    */
   @Override
   public IUnit getTestUnit() {
-    return null;
+    return cleric;
   }
 }

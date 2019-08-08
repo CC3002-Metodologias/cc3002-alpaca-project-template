@@ -91,4 +91,19 @@ class LocationTest {
     locationA0.addNeighbour(locationA1);
     assertEquals(2, locationA0.getNeighbours().size());
   }
+
+  /**
+   * Checks if the neighbour relation can be removed correctly.
+   */
+  @Test
+  public void testRemoveNeighbour() {
+    locationA0.addNeighbour(locationB0);
+    locationA0.addNeighbour(locationA1);
+
+    assertEquals(2, locationA0.getNeighbours().size());
+
+    locationA0.removeNeighbour(locationB0);
+    assertEquals(1, locationA0.getNeighbours().size());
+    assertFalse(locationA0.getNeighbours().contains(locationB0));
+  }
 }

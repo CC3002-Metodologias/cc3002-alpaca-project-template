@@ -1,6 +1,9 @@
 package model.units;
 
+import static java.lang.Math.min;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import model.items.IEquipableItem;
 import model.map.Location;
@@ -17,11 +20,11 @@ import model.map.Location;
  */
 public abstract class AbstractUnit implements IUnit {
 
-  protected final List<IEquipableItem> weapons = new ArrayList<>();
-  private final int hitPoints;
+  protected final List<IEquipableItem> items = new ArrayList<>();
+  private final int currentHitPoints;
   private final int movement;
-  private final Location location;
-  private IEquipableItem equippedWeapon;
+  protected IEquipableItem equippedItem;
+  private Location location;
 
   /**
    * Creates a new Unit.
@@ -32,27 +35,35 @@ public abstract class AbstractUnit implements IUnit {
    *     the number of panels a unit can move
    * @param location
    *     the current position of this unit on the map
+   * @param maxItems
+   *     maximum amount of items this unit can carry
    */
   protected AbstractUnit(final int hitPoints, final int movement,
-      final Location location) {
-    this.hitPoints = hitPoints;
+      final Location location, final int maxItems, final IEquipableItem... items) {
+    this.currentHitPoints = hitPoints;
     this.movement = movement;
     this.location = location;
+    this.items.addAll(Arrays.asList(items).subList(0, min(maxItems, items.length)));
   }
 
   @Override
-  public void equipItem(final IEquipableItem weapon) {
-
+  public int getCurrentHitPoints() {
+    return currentHitPoints;
   }
 
   @Override
-  public int getHitPoints() {
-    return hitPoints;
+  public List<IEquipableItem> getItems() {
+    return items;
   }
 
   @Override
-  public int getMovement() {
-    return movement;
+  public IEquipableItem getEquippedItem() {
+    return equippedItem;
+  }
+
+  @Override
+  public void setEquippedItem(final IEquipableItem item) {
+    this.equippedItem = item;
   }
 
   @Override
@@ -61,22 +72,13 @@ public abstract class AbstractUnit implements IUnit {
   }
 
   @Override
-  public List<IEquipableItem> getWeapons() {
-    return weapons;
+  public void setLocation(final Location location) {
+    this.location = location;
   }
 
   @Override
-  public IEquipableItem getEquippedItem() {
-    return equippedWeapon;
+  public int getMovement() {
+    return movement;
   }
 
-  @Override
-  public void setEquippedWeapon(final IEquipableItem weapon) {
-    this.equippedWeapon = weapon;
-  }
-
-  @Override
-  public void useItemOn(final IUnit target) {
-
-  }
 }

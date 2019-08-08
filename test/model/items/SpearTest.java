@@ -1,5 +1,7 @@
 package model.items;
 
+import model.map.Location;
+import model.units.Hero;
 import model.units.IUnit;
 
 /**
@@ -11,6 +13,8 @@ import model.units.IUnit;
 public class SpearTest extends AbstractTestItem {
 
   private Spear javelin;
+  private Spear wrongSpear;
+  private Hero hero;
 
   /**
    * Sets which item is going to be tested
@@ -29,7 +33,7 @@ public class SpearTest extends AbstractTestItem {
    */
   @Override
   public void setWrongRangeItem() {
-
+    wrongSpear = new Spear("Wrong spear", 0, -1, -2);
   }
 
   /**
@@ -37,12 +41,12 @@ public class SpearTest extends AbstractTestItem {
    */
   @Override
   public void setTestUnit() {
-
+    hero = new Hero(10, 5, new Location(0, 0));
   }
 
   @Override
   public IEquipableItem getWrongTestItem() {
-    return null;
+    return wrongSpear;
   }
 
   /**
@@ -58,6 +62,6 @@ public class SpearTest extends AbstractTestItem {
    */
   @Override
   public IUnit getTestUnit() {
-    return null;
+    return hero;
   }
 }

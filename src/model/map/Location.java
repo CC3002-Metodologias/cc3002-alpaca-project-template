@@ -8,9 +8,9 @@ import model.units.IUnit;
  * This class represents a <i>location</i> in the game's map.
  * <p>
  * A location is simply a graph node with connections to all adjacent positions to it. Every node
- * in the graph contains an id that represents it's position, with rows represented as characters
- * and columns with numbers (just like in a chess table), a list of references to all of it's
- * neighbours and a reference to the unit that's currently in that position (in case there is one).
+ * in the graph contains an id that represents it's position, with rows and columns with numbers
+ * (just like a cartesian plane), a list of references to all of it's neighbours and a reference to
+ * the unit that's currently in that position (in case there is one).
  * <p>
  * Note that a structure like this let's it's user implement more complicated maps than a simple
  * chess one, but for simplicity, it will be assumed that the distance between any node and it's
@@ -63,21 +63,24 @@ public class Location {
   }
 
   /**
-   * @return a hash set of this location adjacent cells
-   */
-  public Set<Location> getNeighbours() {
-    return neighbours;
-  }
-
-  /**
    * Sets a location as adjacent to this one
    *
    * @param neighbour
    *     the location to be added
    */
   public void addNeighbour(final Location neighbour) {
-    neighbours.add(neighbour);
+    neighbour.addTo(this);
     neighbour.neighbours.add(this);
+  }
+
+  /**
+   * Adds this location as a neighbour to another
+   *
+   * @param location
+   *     location to add this as neighbour
+   */
+  protected void addTo(final Location location) {
+    location.neighbours.add(this);
   }
 
   /**
@@ -107,4 +110,68 @@ public class Location {
   public void setUnit(final IUnit unit) {
     this.unit = unit;
   }
+
+  /**
+   * Removes a reighbour from this location.
+   *
+   * @param neighbour
+   *     the neighbour to be removed
+   */
+  public void removeNeighbour(final Location neighbour) {
+    neighbours.remove(neighbour);
+    neighbour.getNeighbours().remove(neighbour);
+  }
+
+  /**
+   * @return a hash set of this location adjacent cells
+   */
+  public Set<Location> getNeighbours() {
+    return neighbours;
+  }
+
+  /**
+   * Calculates the distance from this location to another
+   *
+   * @param otherNode
+   *     the other location
+   * @return the length of the shortest path to the other location
+   */
+  public double distanceTo(final Location otherNode) {
+    return shortestPathTo(otherNode, new HashSet<>());
+  }
+
+  /**
+   * Gets the shortest path to another node storing a set of already visited nodes
+   *
+   * @return the distance between the nodes
+   */
+  private double shortestPathTo(final Location otherNode, final Set<Location> visited) {
+    if (otherNode.equals(this)) {
+      return 0;
+    }
+    visited.add(this);
+    double distance = Double.POSITIVE_INFINITY;
+    for (Location node :
+        neighbours) {
+      if (!visited.contains(node)) {
+        distance = Math.min(distance, 1 + node.shortestPathTo(otherNode, new HashSet<>(visited)));
+      }
+    }
+    return distance;
+  }
+
+  /**
+   * @return the row of the current location
+   */
+  public int getRow() {
+    return row;
+  }
+
+  /**
+   * @return the column of the current location
+   */
+  public int getColumn() {
+    return column;
+  }
+
 }

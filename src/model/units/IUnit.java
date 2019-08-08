@@ -15,19 +15,60 @@ import model.map.Location;
  */
 public interface IUnit {
 
-  void equipItem(IEquipableItem weapon);
+  /**
+   * Sets the currently equipped item of this unit.
+   *
+   * @param item
+   *     the item to equip
+   */
+  void equipItem(IEquipableItem item);
 
-  abstract int getHitPoints();
+  /**
+   * @return hit points of the unit
+   */
+  int getCurrentHitPoints();
 
-  abstract int getMovement();
+  /**
+   * @return the items carried by this unit
+   */
+  List<IEquipableItem> getItems();
 
-  abstract Location getLocation();
+  /**
+   * @return the currently equipped item
+   */
+  IEquipableItem getEquippedItem();
 
-  abstract List<IEquipableItem> getWeapons();
+  /**
+   * @param item
+   *     the item to be equipped
+   */
+  void setEquippedItem(IEquipableItem item);
 
-  abstract IEquipableItem getEquippedItem();
+  /**
+   * Moves this unit to another location.
+   * <p>
+   * If the other location is out of this unit's movement range, the unit doesn't move.
+   */
+  default void moveTo(final Location targetLocation) {
+    if (getLocation().distanceTo(targetLocation) <= getMovement()
+        && targetLocation.getUnit() == null) {
+      setLocation(targetLocation);
+    }
+  }
 
-  abstract void setEquippedWeapon(IEquipableItem weapon);
+  /**
+   * @return the current location of the unit
+   */
+  Location getLocation();
 
-  void useItemOn(IUnit target);
+  /**
+   * Sets a new location for this unit,
+   */
+  void setLocation(final Location location);
+
+  /**
+   * @return the number of cells this unit can move
+   */
+  int getMovement();
+
 }

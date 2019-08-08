@@ -44,7 +44,7 @@ public class BowTest extends AbstractTestItem {
    */
   @Override
   public void setTestUnit() {
-    archer = new Archer(10, 5, new Location('A', 0));
+    archer = new Archer(10, 5, new Location(0, 0));
   }
 
   /**

@@ -1,43 +1,28 @@
 package model.items;
 
-import model.units.IUnit;
-
 /**
+ * This class represents a sword type item.
+ * <p>
+ * Swords are strong against axes and weak against spears.
+ *
  * @author Ignacio Slater Muñoz
- * @since
+ * @since 1.0
  */
-public class Sword implements IEquipableItem {
+public class Sword extends AbstractItem {
 
-  public Sword(final String name, final int baseDamage, final int minRange, final int maxRange) {
-  }
-
-  @Override
-  public void equipTo(final IUnit unit) {
-
-  }
-
-  @Override
-  public IUnit getOwner() {
-    return null;
-  }
-
-  @Override
-  public String getName() {
-    return null;
-  }
-
-  @Override
-  public int getPower() {
-    return 0;
-  }
-
-  @Override
-  public int getMinRange() {
-    return 0;
-  }
-
-  @Override
-  public int getMaxRange() {
-    return 0;
+  /**
+   * Creates a new Sword.
+   *
+   * @param name
+   *     the name that identifies the weapon
+   * @param power
+   *     the base damage pf the weapon
+   * @param minRange
+   *     the minimum range of the weapon
+   * @param maxRange
+   *     the maximum range of the weapon
+   */
+  public Sword(final String name, final int power, final int minRange, final int maxRange) {
+    super(name, power, minRange, maxRange);
   }
 }

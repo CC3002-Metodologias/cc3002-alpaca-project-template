@@ -1,43 +1,28 @@
 package model.items;
 
-import model.units.IUnit;
-
 /**
+ * This class represents a <i>spear</i>.
+ * <p>
+ * Spears are strong against swords and weak against axes
+ *
  * @author Ignacio Slater Muñoz
- * @since
+ * @since 1.0
  */
-public class Spear implements IEquipableItem {
+public class Spear extends AbstractItem {
 
-  public Spear(final String name, final int baseDamage, final int minRange, final int maxRange) {
-  }
-
-  @Override
-  public void equipTo(final IUnit unit) {
-
-  }
-
-  @Override
-  public IUnit getOwner() {
-    return null;
-  }
-
-  @Override
-  public String getName() {
-    return null;
-  }
-
-  @Override
-  public int getPower() {
-    return 0;
-  }
-
-  @Override
-  public int getMinRange() {
-    return 0;
-  }
-
-  @Override
-  public int getMaxRange() {
-    return 0;
+  /**
+   * Creates a new Axe item
+   *
+   * @param name
+   *     the name of the Axe
+   * @param power
+   *     the damage of the axe
+   * @param minRange
+   *     the minimum range of the axe
+   * @param maxRange
+   *     the maximum range of the axe
+   */
+  public Spear(final String name, final int power, final int minRange, final int maxRange) {
+    super(name, power, minRange, maxRange);
   }
 }

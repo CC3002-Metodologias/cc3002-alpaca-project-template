@@ -1,6 +1,8 @@
 package model.items;
 
+import model.map.Location;
 import model.units.IUnit;
+import model.units.SwordMaster;
 
 /**
  * Test set for swords
@@ -11,6 +13,8 @@ import model.units.IUnit;
 public class SwordTest extends AbstractTestItem {
 
   private Sword sword;
+  private Sword wrongSword;
+  private SwordMaster swordMaster;
 
   /**
    * Sets which item is going to be tested
@@ -29,7 +33,7 @@ public class SwordTest extends AbstractTestItem {
    */
   @Override
   public void setWrongRangeItem() {
-
+    wrongSword = new Sword("Wrong sword", 0, -1, -2);
   }
 
   /**
@@ -37,12 +41,12 @@ public class SwordTest extends AbstractTestItem {
    */
   @Override
   public void setTestUnit() {
-
+    swordMaster = new SwordMaster(10, 5, new Location(0, 0));
   }
 
   @Override
   public IEquipableItem getWrongTestItem() {
-    return null;
+    return wrongSword;
   }
 
   /**
@@ -58,6 +62,6 @@ public class SwordTest extends AbstractTestItem {
    */
   @Override
   public IUnit getTestUnit() {
-    return null;
+    return swordMaster;
   }
 }
