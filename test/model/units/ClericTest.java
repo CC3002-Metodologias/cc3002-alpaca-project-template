@@ -1,20 +1,38 @@
 package model.units;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Ignacio Slater Muñoz
  */
-public class ClericTest {
+public class ClericTest extends AbstractTestUnit {
 
   private Cleric cleric;
 
-  @BeforeEach
-  public void setUp() {
+  /**
+   * Set up the main unit that's going to be tested in the test set
+   */
+  @Override
+  public void setTestUnit() {
+    cleric = new Cleric(50, 2, field.getCell(0, 0));
   }
 
-  @AfterEach
-  public void tearDown() {
+  /**
+   * @return the current unit being tested
+   */
+  @Override
+  public IUnit getTestUnit() {
+    return cleric;
+  }
+
+  @Test
+  @Override
+  public void equipStaffTest() {
+    assertNull(cleric.getEquippedItem());
+    cleric.equipItem(staff);
+    assertEquals(staff, cleric.getEquippedItem());
   }
 }

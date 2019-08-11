@@ -15,7 +15,7 @@ public abstract class AbstractTestUnit implements ITestUnit {
   protected Field field;
   private Axe axe;
   private Sword sword;
-  private Staff staff;
+  protected Staff staff;
   private Spear spear;
 
   @Override
