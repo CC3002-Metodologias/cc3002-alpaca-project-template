@@ -1,5 +1,6 @@
 package model.units;
 
+import model.items.Axe;
 import model.items.IEquipableItem;
 import model.map.Location;
 
@@ -25,6 +26,8 @@ public class Fighter extends AbstractUnit {
    */
   @Override
   public void equipItem(final IEquipableItem item) {
-
+    if (item instanceof Axe) {
+      equippedItem = item;
+    }
   }
 }

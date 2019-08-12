@@ -13,10 +13,10 @@ public abstract class AbstractTestUnit implements ITestUnit {
   protected Alpaca targetAlpaca;
   protected Bow bow;
   protected Field field;
-  private Axe axe;
-  private Sword sword;
+  protected Axe axe;
+  protected Sword sword;
   protected Staff staff;
-  private Spear spear;
+  protected Spear spear;
 
   @Override
   public void setTargetAlpaca() {
