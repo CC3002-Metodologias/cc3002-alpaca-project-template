@@ -53,7 +53,7 @@ public abstract class AbstractUnit implements IUnit {
 
   @Override
   public List<IEquipableItem> getItems() {
-    return items;
+    return List.copyOf(items);
   }
 
   @Override

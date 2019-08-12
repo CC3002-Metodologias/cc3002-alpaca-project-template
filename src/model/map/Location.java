@@ -126,7 +126,7 @@ public class Location {
    * @return a hash set of this location adjacent cells
    */
   public Set<Location> getNeighbours() {
-    return neighbours;
+    return Set.copyOf(neighbours);
   }
 
   /**

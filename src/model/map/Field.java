@@ -97,7 +97,7 @@ public class Field {
   }
 
   public Map<String, Location> getMap() {
-    return map;
+    return Map.copyOf(map);
   }
 
   /**
