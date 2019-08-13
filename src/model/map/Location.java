@@ -119,7 +119,7 @@ public class Location {
    */
   public void removeNeighbour(final Location neighbour) {
     neighbours.remove(neighbour);
-    neighbour.getNeighbours().remove(neighbour);
+    neighbour.neighbours.remove(neighbour);
   }
 
   /**
