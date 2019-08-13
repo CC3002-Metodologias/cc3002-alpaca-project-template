@@ -1,14 +1,8 @@
 package model.units;
 
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import model.items.*;
 import model.map.Field;
-import model.map.Location;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -18,17 +12,6 @@ import org.junit.jupiter.api.Test;
  * @since 1.0
  */
 public interface ITestUnit {
-
-  /**
-   * Sets up the units and weapons to be tested
-   */
-  @BeforeEach
-  default void setUp() {
-    setField();
-    setTestUnit();
-    setTargetAlpaca();
-    setWeapons();
-  }
 
   /**
    * Set up the game field
@@ -51,12 +34,7 @@ public interface ITestUnit {
    * Checks that the constructor works properly.
    */
   @Test
-  default void constructorTest() {
-    assertEquals(50, getTestUnit().getCurrentHitPoints());
-    assertEquals(2, getTestUnit().getMovement());
-    assertEquals(new Location(0, 0), getTestUnit().getLocation());
-    assertTrue(getTestUnit().getItems().isEmpty());
-  }
+  void constructorTest();
 
   /**
    * @return the current unit being tested
@@ -67,10 +45,7 @@ public interface ITestUnit {
    * Checks if the axe is equipped correctly to the unit
    */
   @Test
-  default void equipAxeTest() {
-    assertNull(getTestUnit().getEquippedItem());
-    checkEquippedItem(getAxe());
-  }
+  void equipAxeTest();
 
   /**
    * Tries to equip a weapon to the alpaca and verifies that it was not equipped
@@ -78,11 +53,7 @@ public interface ITestUnit {
    * @param item
    *     to be equipped
    */
-  default void checkEquippedItem(IEquipableItem item) {
-    assertNull(getTestUnit().getEquippedItem());
-    getTestUnit().equipItem(item);
-    assertNull(getTestUnit().getEquippedItem());
-  }
+  void checkEquippedItem(IEquipableItem item);
 
   /**
    * @return the test axe
@@ -90,9 +61,7 @@ public interface ITestUnit {
   Axe getAxe();
 
   @Test
-  default void equipSwordTest() {
-    checkEquippedItem(getSword());
-  }
+  void equipSwordTest();
 
   /**
    * @return the test sword
@@ -100,9 +69,7 @@ public interface ITestUnit {
   Sword getSword();
 
   @Test
-  default void equipSpearTest() {
-    checkEquippedItem(getSpear());
-  }
+  void equipSpearTest();
 
   /**
    * @return the test spear
@@ -110,9 +77,7 @@ public interface ITestUnit {
   Spear getSpear();
 
   @Test
-  default void equipStaffTest() {
-    checkEquippedItem(getStaff());
-  }
+  void equipStaffTest();
 
   /**
    * @return the test staff
@@ -120,9 +85,7 @@ public interface ITestUnit {
   Staff getStaff();
 
   @Test
-  default void equipBowTest() {
-    checkEquippedItem(getBow());
-  }
+  void equipBowTest();
 
   /**
    * @return the test bow
@@ -133,17 +96,7 @@ public interface ITestUnit {
    * Checks if the unit moves correctly
    */
   @Test
-  default void testMovement() {
-    getTestUnit().moveTo(getField().getCell(2, 2));
-    assertEquals(new Location(0, 0), getTestUnit().getLocation());
-
-    getTestUnit().moveTo(getField().getCell(0, 2));
-    assertEquals(new Location(0, 2), getTestUnit().getLocation());
-
-    getField().getCell(0, 1).setUnit(getTargetAlpaca());
-    getTestUnit().moveTo(getField().getCell(0, 1));
-    assertEquals(new Location(0, 2), getTestUnit().getLocation());
-  }
+  void testMovement();
 
   /**
    * @return the test field

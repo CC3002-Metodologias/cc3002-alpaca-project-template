@@ -45,18 +45,6 @@ public interface IUnit {
   void setEquippedItem(IEquipableItem item);
 
   /**
-   * Moves this unit to another location.
-   * <p>
-   * If the other location is out of this unit's movement range, the unit doesn't move.
-   */
-  default void moveTo(final Location targetLocation) {
-    if (getLocation().distanceTo(targetLocation) <= getMovement()
-        && targetLocation.getUnit() == null) {
-      setLocation(targetLocation);
-    }
-  }
-
-  /**
    * @return the current location of the unit
    */
   Location getLocation();
@@ -71,4 +59,10 @@ public interface IUnit {
    */
   int getMovement();
 
+  /**
+   * Moves this unit to another location.
+   * <p>
+   * If the other location is out of this unit's movement range, the unit doesn't move.
+   */
+  void moveTo(Location targetLocation);
 }

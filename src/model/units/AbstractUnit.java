@@ -81,4 +81,11 @@ public abstract class AbstractUnit implements IUnit {
     return movement;
   }
 
+  @Override
+  public void moveTo(final Location targetLocation) {
+    if (getLocation().distanceTo(targetLocation) <= getMovement()
+        && targetLocation.getUnit() == null) {
+      setLocation(targetLocation);
+    }
+  }
 }
