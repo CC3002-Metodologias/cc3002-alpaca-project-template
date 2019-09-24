@@ -29,6 +29,7 @@ public abstract class AbstractTestItem {
     setTestItem();
     setWrongRangeItem();
     setTestUnit();
+    System.out.println(0.1 * 3);
   }
 
   /**
