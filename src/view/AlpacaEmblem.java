@@ -7,7 +7,7 @@ import javax.swing.JFrame;
  * Main class of the Alpaca Emblem game.
  *
  * @author Ignacio Slater Muño<
- * @version 3.0b2
+ * @version 3.0b3
  * @since 3.0
  */
 public class AlpacaEmblem extends JFrame {
@@ -16,13 +16,13 @@ public class AlpacaEmblem extends JFrame {
    * Creates the game's graphic interface
    */
   public AlpacaEmblem() {
-    Board board = new Board();
-    add(board);
+    FieldGUI fieldGUI = new FieldGUI();
+    add(fieldGUI);
 
     setTitle("Alpaca Emblem");
 
     final int OFFSET = 30;
-    setSize(board.getBoardWidth() + OFFSET, board.getBoardHeight() + 2 * OFFSET);
+    setSize(fieldGUI.getFieldWidth() + OFFSET, fieldGUI.getFieldHeight() + 2 * OFFSET);
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
