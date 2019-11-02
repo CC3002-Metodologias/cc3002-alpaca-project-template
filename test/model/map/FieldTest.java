@@ -95,6 +95,14 @@ class FieldTest {
     assertEquals(2, location00.distanceTo(map.getCell(1, 1)));
     assertEquals(3, location00.distanceTo(map.getCell(1, 2)));
     assertEquals(4, location00.distanceTo(map.getCell(2, 2)));
+
+    Field f = new Field();
+    for (int i = 0; i < 7; i++) {
+      for (int j = 0; j < 7; j++) {
+        f.addCells(false, new Location(i, j));
+      }
+    }
+    assertEquals(1, f.getCell(0, 0).distanceTo(f.getCell(0, 1)));
   }
 
   @Test
