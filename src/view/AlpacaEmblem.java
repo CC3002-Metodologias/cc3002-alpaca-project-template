@@ -7,7 +7,7 @@ import javax.swing.JFrame;
  * Main class of the Alpaca Emblem game.
  *
  * @author Ignacio Slater Muño<
- * @version 3.0b1
+ * @version 3.0b2
  * @since 3.0
  */
 public class AlpacaEmblem extends JFrame {
@@ -28,11 +28,19 @@ public class AlpacaEmblem extends JFrame {
     setLocationRelativeTo(null);
   }
 
+  /**
+   * Runs the game.
+   *
+   * @param args
+   *     not used
+   */
   public static void main(String[] args) {
-
     EventQueue.invokeLater(AlpacaEmblem::run);
   }
 
+  /**
+   * Initiates the GUI and makes it visible
+   */
   private static void run() {
     AlpacaEmblem game = new AlpacaEmblem();
     game.setVisible(true);
