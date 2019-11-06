@@ -10,12 +10,12 @@ import javax.swing.JFrame;
  * @version 3.0b3
  * @since 3.0
  */
-public class AlpacaEmblem extends JFrame {
+public class Demo extends JFrame {
 
   /**
    * Creates the game's graphic interface
    */
-  public AlpacaEmblem() {
+  public Demo() {
     FieldGUI fieldGUI = new FieldGUI();
     add(fieldGUI);
 
@@ -35,14 +35,14 @@ public class AlpacaEmblem extends JFrame {
    *     not used
    */
   public static void main(String[] args) {
-    EventQueue.invokeLater(AlpacaEmblem::run);
+    EventQueue.invokeLater(Demo::run);
   }
 
   /**
    * Initiates the GUI and makes it visible
    */
   private static void run() {
-    AlpacaEmblem game = new AlpacaEmblem();
+    Demo game = new Demo();
     game.setVisible(true);
   }
 }

@@ -16,7 +16,8 @@ import javax.swing.JPanel;
  */
 public class FieldGUI extends JPanel {
 
-  private final int SPACE = 20;
+  /** Each cell is a 128x128 square */
+  private final int DIMENSIONS = 128;
   private final int LEFT_COLLISION = 1;
   private final int RIGHT_COLLISION = 2;
   private final int TOP_COLLISION = 3;
@@ -73,7 +74,7 @@ public class FieldGUI extends JPanel {
       char item = level.charAt(i);
       switch (item) {
         case '\n':
-          y += SPACE;
+          y += DIMENSIONS;
           if (this.fieldWidth < x) {
             this.fieldWidth = x;
           }
@@ -82,24 +83,24 @@ public class FieldGUI extends JPanel {
         case '#':
           wall = new Wall(x, y);
           walls.add(wall);
-          x += SPACE;
+          x += DIMENSIONS;
           break;
         case '$':
           b = new Baggage(x, y);
           baggs.add(b);
-          x += SPACE;
+          x += DIMENSIONS;
           break;
         case '.':
           a = new Area(x, y);
           areas.add(a);
-          x += SPACE;
+          x += DIMENSIONS;
           break;
         case '@':
           soko = new Player(x, y);
-          x += SPACE;
+          x += DIMENSIONS;
           break;
         case ' ':
-          x += SPACE;
+          x += DIMENSIONS;
           break;
         default:
           break;
@@ -174,7 +175,7 @@ public class FieldGUI extends JPanel {
                 return true;
               }
             }
-            bag.move(-SPACE, 0);
+            bag.move(-DIMENSIONS, 0);
             isCompleted();
           }
         }
@@ -193,7 +194,7 @@ public class FieldGUI extends JPanel {
                 return true;
               }
             }
-            bag.move(SPACE, 0);
+            bag.move(DIMENSIONS, 0);
             isCompleted();
           }
         }
@@ -212,7 +213,7 @@ public class FieldGUI extends JPanel {
                 return true;
               }
             }
-            bag.move(0, -SPACE);
+            bag.move(0, -DIMENSIONS);
             isCompleted();
           }
         }
@@ -231,7 +232,7 @@ public class FieldGUI extends JPanel {
                 return true;
               }
             }
-            bag.move(0, SPACE);
+            bag.move(0, DIMENSIONS);
             isCompleted();
           }
         }
@@ -325,7 +326,7 @@ public class FieldGUI extends JPanel {
           if (checkBagCollision(LEFT_COLLISION)) {
             return;
           }
-          soko.move(-SPACE, 0);
+          soko.move(-DIMENSIONS, 0);
           break;
         case KeyEvent.VK_RIGHT:
           if (checkWallCollision(soko, RIGHT_COLLISION)) {
@@ -334,7 +335,7 @@ public class FieldGUI extends JPanel {
           if (checkBagCollision(RIGHT_COLLISION)) {
             return;
           }
-          soko.move(SPACE, 0);
+          soko.move(DIMENSIONS, 0);
           break;
         case KeyEvent.VK_UP:
           if (checkWallCollision(soko, TOP_COLLISION)) {
@@ -343,7 +344,7 @@ public class FieldGUI extends JPanel {
           if (checkBagCollision(TOP_COLLISION)) {
             return;
           }
-          soko.move(0, -SPACE);
+          soko.move(0, -DIMENSIONS);
           break;
         case KeyEvent.VK_DOWN:
           if (checkWallCollision(soko, BOTTOM_COLLISION)) {
@@ -352,7 +353,7 @@ public class FieldGUI extends JPanel {
           if (checkBagCollision(BOTTOM_COLLISION)) {
             return;
           }
-          soko.move(0, SPACE);
+          soko.move(0, DIMENSIONS);
           break;
         case KeyEvent.VK_R:
           restartLevel();
