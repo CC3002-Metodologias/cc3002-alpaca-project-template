@@ -1,4 +1,4 @@
-package view;
+package gui;
 
 import java.awt.Image;
 import java.awt.event.KeyEvent;

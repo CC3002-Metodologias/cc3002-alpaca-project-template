@@ -1,11 +1,11 @@
-package view.main;
+package gui.main;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.HeadlessException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import view.panel.Container;
+import gui.views.ViewsContainer;
 
 /**
  * The main class of the Alpaca Emblem game.
@@ -32,7 +32,7 @@ import view.panel.Container;
  * </p>
  *
  * @author Ignacio slater Muñoz (mailto:ignacio.slater@ug.uchile.cl)
- * @version 3.0b5
+ * @version 3.0b6
  * @since 3.0
  */
 public class AlpacaEmblem extends JFrame {
@@ -46,7 +46,7 @@ public class AlpacaEmblem extends JFrame {
    *     when a necessary input/output functionality is missing in the system.
    */
   private AlpacaEmblem() throws HeadlessException {
-    mainPanel = new Container();
+    mainPanel = new ViewsContainer(this);
     setupFrame();
   }
 
@@ -69,7 +69,7 @@ public class AlpacaEmblem extends JFrame {
   }
 
   /**
-   * Associates the main panel to the app's frame and set's up the window parameters.
+   * Associates the game container to the app's frame and set's up the window parameters.
    */
   private void setupFrame() {
     this.setTitle("Alpaca Emblem");
