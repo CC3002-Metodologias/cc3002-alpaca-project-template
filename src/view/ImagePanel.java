@@ -6,25 +6,30 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
+ * This class represents a panel with a background image.
+ *
  * @author Ignacio Slater Muñoz
- * @version 3.0b4
+ * @version 3.0b5
  * @since 3.0
  */
-class ImagePanel extends JPanel {
+public class ImagePanel extends JPanel {
 
-  private Image img;
+  protected Image panelBackground;
 
+  /**
+   * Creates a new panel using a picture.
+   *
+   * @param imgPath
+   *     the path to the background image
+   */
   public ImagePanel(String imgPath) {
-    this(new ImageIcon(imgPath).getImage());
-  }
-
-  private ImagePanel(Image img) {
     super();
-    this.img = img;
+    this.panelBackground = new ImageIcon(imgPath).getImage();
   }
 
+  @Override
   public void paintComponent(Graphics g) {
-    g.drawImage(img, 0, 0, null);
+    g.drawImage(panelBackground, 0, 0, null);
   }
 
 }

@@ -1,12 +1,11 @@
-package view;
+package view.main;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.HeadlessException;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import view.panel.Container;
 
 /**
  * The main class of the Alpaca Emblem game.
@@ -33,14 +32,12 @@ import javax.swing.JPanel;
  * </p>
  *
  * @author Ignacio slater Muñoz (mailto:ignacio.slater@ug.uchile.cl)
- * @version 3.0b4
+ * @version 3.0b5
  * @since 3.0
  */
 public class AlpacaEmblem extends JFrame {
 
-  private JPanel landingPageView;
   private JPanel mainPanel;
-  private final String BACKGROUND_IMAGE = "resources/landing_page.jpg";
 
   /**
    * Initializes the game view.
@@ -49,8 +46,7 @@ public class AlpacaEmblem extends JFrame {
    *     when a necessary input/output functionality is missing in the system.
    */
   private AlpacaEmblem() throws HeadlessException {
-    mainPanel = new JPanel(new CardLayout());
-    setupViews();
+    mainPanel = new Container();
     setupFrame();
   }
 
@@ -70,15 +66,6 @@ public class AlpacaEmblem extends JFrame {
   private static void run() {
     AlpacaEmblem game = new AlpacaEmblem();
     game.setVisible(true);
-  }
-
-  /**
-   * Creates the game views and adds them to the main app's panel
-   */
-  private void setupViews() {
-    landingPageView = new ImagePanel(BACKGROUND_IMAGE);
-    landingPageView.add(new JButton("Change view (coming soon)"));
-    mainPanel.add(landingPageView);
   }
 
   /**
