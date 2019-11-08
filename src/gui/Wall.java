@@ -1,9 +1,10 @@
 package gui;
 
+import gui.components.AbstractMovableComponent;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
-public class Wall extends Actor {
+public class Wall extends AbstractMovableComponent {
 
   private Image image;
 
@@ -19,4 +20,5 @@ public class Wall extends Actor {
     image = iicon.getImage();
     setImage(image);
   }
+
 }

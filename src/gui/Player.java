@@ -1,9 +1,10 @@
 package gui;
 
+import gui.components.AbstractMovableComponent;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
-public class Player extends Actor {
+public class Player extends AbstractMovableComponent {
 
   public Player(int x, int y) {
     super(x, y);
@@ -13,17 +14,9 @@ public class Player extends Actor {
 
   private void initPlayer() {
 
-    ImageIcon iicon = new ImageIcon("src/resources/sokoban.png");
+    ImageIcon iicon = new ImageIcon("resources/sprite.png");
     Image image = iicon.getImage();
     setImage(image);
   }
 
-  public void move(int x, int y) {
-
-    int dx = x() + x;
-    int dy = y() + y;
-
-    setX(dx);
-    setY(dy);
-  }
 }

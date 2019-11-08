@@ -1,9 +1,10 @@
 package gui;
 
+import gui.components.AbstractMovableComponent;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
-public class Baggage extends Actor {
+public class Baggage extends AbstractMovableComponent {
 
   public Baggage(int x, int y) {
     super(x, y);
@@ -20,10 +21,6 @@ public class Baggage extends Actor {
 
   public void move(int x, int y) {
 
-    int dx = x() + x;
-    int dy = y() + y;
-
-    setX(dx);
-    setY(dy);
+    super.move(x, y);
   }
 }

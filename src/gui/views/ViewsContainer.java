@@ -1,6 +1,5 @@
 package gui.views;
 
-import gui.FieldGUI;
 import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,7 +8,7 @@ import javax.swing.JPanel;
  * Container for the game views
  *
  * @author Ignacio slater Muñoz (mailto:ignacio.slater@ug.uchile.cl)
- * @version 3.0b6
+ * @version 3.0b7
  * @since 3.0
  */
 public class ViewsContainer extends JPanel {
@@ -33,7 +32,7 @@ public class ViewsContainer extends JPanel {
    */
   private void setupViews() {
     this.add(new LandingView(this));
-    this.add(new FieldGUI());
+    this.add(new FieldView());
   }
 
   public void changeFrameDimensions(final int x, final int y) {
