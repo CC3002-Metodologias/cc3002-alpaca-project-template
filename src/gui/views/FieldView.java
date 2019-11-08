@@ -5,20 +5,24 @@ import gui.components.MovableComponent;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.sound.sampled.*;
 import javax.swing.*;
 
 /**
  * Graphic user interface of the game's main view
  *
  * @author Ignacio Slater Muñoz
- * @version 3.0b7
+ * @version 3.0b8
  * @since 3.0
  */
 public class FieldView extends JPanel {
 
   /** Each cell is a 128x128 square */
   private final int CELL_SIZE = 128;
+  private final String AUDIO_PATH = "resources/prfvr.wav";
 
   private ArrayList<Wall> walls;
   private ArrayList<Baggage> baggs;
@@ -31,7 +35,7 @@ public class FieldView extends JPanel {
   /**
    * Creates the view for the game field.
    */
-  public FieldView() {
+  public FieldView() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
     setupKeyMappings();
     setFocusable(true);
     initField();
@@ -45,6 +49,7 @@ public class FieldView extends JPanel {
     addActionMapping(KeyStroke.getKeyStroke(Keys.UP), new MoveSpriteUpAction());
     addActionMapping(KeyStroke.getKeyStroke(Keys.RIGHT), new MoveSpriteRightAction());
     addActionMapping(KeyStroke.getKeyStroke(Keys.LEFT), new MoveSpriteLeftAction());
+    addActionMapping(KeyStroke.getKeyStroke(Keys.ENTER), new PlaySoundAction());
   }
 
   /**
@@ -215,6 +220,23 @@ public class FieldView extends JPanel {
     @Override
     public void actionPerformed(final ActionEvent actionEvent) {
       moveSprite(-CELL_SIZE, 0);
+    }
+  }
+
+  private class PlaySoundAction extends AbstractAction {
+
+    @Override
+    public void actionPerformed(final ActionEvent e) {
+      AudioInputStream stream = null;
+      Clip clip = null;
+      try {
+        stream = AudioSystem.getAudioInputStream(new File(AUDIO_PATH).getAbsoluteFile());
+        clip = AudioSystem.getClip();
+        clip.open(stream);
+        clip.start();
+      } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+        ex.printStackTrace();
+      }
     }
   }
 }
