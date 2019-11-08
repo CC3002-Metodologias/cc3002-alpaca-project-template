@@ -1,9 +1,6 @@
 package gui.views;
 
 import java.awt.CardLayout;
-import java.io.IOException;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -11,7 +8,7 @@ import javax.swing.JPanel;
  * Container for the game views
  *
  * @author Ignacio slater Muñoz (mailto:ignacio.slater@ug.uchile.cl)
- * @version 3.0b8
+ * @version 3.0b9
  * @since 3.0
  */
 public class ViewsContainer extends JPanel {
@@ -24,8 +21,7 @@ public class ViewsContainer extends JPanel {
    * @param game
    *     the main frame of the game
    */
-  public ViewsContainer(final JFrame game)
-      throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+  public ViewsContainer(final JFrame game) {
     super(new CardLayout());
     this.game = game;
     setupViews();
@@ -34,14 +30,21 @@ public class ViewsContainer extends JPanel {
   /**
    * Creates the views inside the container.
    */
-  private void setupViews()
-      throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+  private void setupViews() {
     this.add(new LandingView(this));
     this.add(new FieldView());
   }
 
-  public void changeFrameDimensions(final int x, final int y) {
-    game.setSize(x, y);
+  /**
+   * Modifies the dimensions of the frame that holds this container
+   *
+   * @param width
+   *     the new horizontal dimensions of the frame
+   * @param height
+   *     the new vertical dimensions of the frame
+   */
+  public void changeFrameDimensions(final int width, final int height) {
+    game.setSize(width, height);
   }
 
   public void nextView() {

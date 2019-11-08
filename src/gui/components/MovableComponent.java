@@ -2,80 +2,63 @@ package gui.components;
 
 import java.awt.Image;
 import java.awt.Point;
+import javax.swing.ImageIcon;
 
 /**
+ * This class represents an object that can be moved inside the game.
+ *
  * @author Ignacio Slater Muñoz
+ * @version 3.0b9
  * @since 3.0
  */
 public class MovableComponent {
 
-  private final int SPACE = 20;
-  protected int x;
-  protected int y;
+  private final Image sprite;
   private Point position;
-  private Image image;
 
-  public MovableComponent(Point startingPosition) {
-    position = startingPosition;
+  /**
+   * Creates a new component.
+   *
+   * @param position
+   *     the starting position of the component
+   * @param spritePath
+   *     the path to the component's sprite
+   */
+  public MovableComponent(final Point position, final String spritePath) {
+    this.position = position;
+    sprite = new ImageIcon(spritePath).getImage();
   }
 
-  public Image getImage() {
-    return image;
+  /**
+   * Moves the component to a new position
+   *
+   * @param horizontalDistance
+   *     the horizontal movement
+   * @param verticalDistance
+   *     the vertical movement
+   */
+  public void move(int horizontalDistance, int verticalDistance) {
+    position.translate(horizontalDistance, verticalDistance);
   }
 
-  public void setImage(Image img) {
-    image = img;
+  /**
+   * @return the component's sprite
+   */
+  public Image getSprite() {
+    return sprite;
   }
 
-  public boolean isLeftCollision() {
-    return false;
+  /**
+   * @return the component's horizontal position
+   */
+  public int getHorizontalPosition() {
+    return (int) position.getX();
   }
 
-  public boolean isRightCollision(AbstractMovableComponent actor) {
-
-    return x() + SPACE == actor.x() && y() == actor.y();
-  }
-
-  public int x() {
-
-    return x;
-  }
-
-  public int y() {
-
-    return y;
-  }
-
-  public boolean isTopCollision(AbstractMovableComponent actor) {
-
-    return y() - SPACE == actor.y() && x() == actor.x();
-  }
-
-  public boolean isBottomCollision(AbstractMovableComponent actor) {
-
-    return y() + SPACE == actor.y() && x() == actor.x();
-  }
-
-  public void moveUp(final int amount) {
-    move(0, -amount);
-  }
-
-  public void move(int x, int y) {
-
-    int dx = x() + x;
-    int dy = y() + y;
-
-    setX(dx);
-    setY(dy);
-  }
-
-  public void setX(int x) {
-
-    this.x = x;
-  }
-
-  public void setY(int y) {
-
-    this.y = y;
+  /**
+   * @return the component's vertical position
+   */
+  public int getVerticalPosition() {
+    return (int) position.getY();
   }
 }

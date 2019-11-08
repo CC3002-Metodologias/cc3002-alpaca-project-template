@@ -1,9 +1,10 @@
 package gui.views;
 
-import gui.*;
+import gui.Keys;
 import gui.components.MovableComponent;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
@@ -15,30 +16,24 @@ import javax.swing.*;
  * Graphic user interface of the game's main view
  *
  * @author Ignacio Slater Muñoz
- * @version 3.0b8
+ * @version 3.0b9
  * @since 3.0
  */
 public class FieldView extends JPanel {
 
   /** Each cell is a 128x128 square */
   private final int CELL_SIZE = 128;
-  private final String AUDIO_PATH = "resources/prfvr.wav";
-
-  private ArrayList<Wall> walls;
-  private ArrayList<Baggage> baggs;
-  private ArrayList<Area> areas;
 
   private MovableComponent sprite;
-  private int fieldWidth = 0;
-  private int fieldHeigth = 0;
 
   /**
    * Creates the view for the game field.
    */
-  public FieldView() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+  public FieldView() {
     setupKeyMappings();
     setFocusable(true);
-    initField();
+    final String SPRITE_PATH = "resources/sprite.png";
+    sprite = new MovableComponent(new Point(0, 0), SPRITE_PATH);
   }
 
   /**
@@ -50,73 +45,6 @@ public class FieldView extends JPanel {
     addActionMapping(KeyStroke.getKeyStroke(Keys.RIGHT), new MoveSpriteRightAction());
     addActionMapping(KeyStroke.getKeyStroke(Keys.LEFT), new MoveSpriteLeftAction());
     addActionMapping(KeyStroke.getKeyStroke(Keys.ENTER), new PlaySoundAction());
-  }
-
-  /**
-   * Initializes the field
-   */
-  private void initField() {
-    walls = new ArrayList<>();
-    baggs = new ArrayList<>();
-    areas = new ArrayList<>();
-
-    final int OFFSET = 10;
-    int x = OFFSET;
-    int y = OFFSET;
-
-    Wall wall;
-    Baggage b;
-    Area a;
-
-    final String level = "    ######\n"
-        + "@    ##   #\n"
-        + "    ##$  #\n"
-        + "  ####  $##\n"
-        + "  ##  $ $ #\n"
-        + "#### # ## #   ######\n"
-        + "##   # ## #####  ..#\n"
-        + "## $  $          ..#\n"
-        + "###### ### # ##  ..#\n"
-        + "    ##     #########\n"
-        + "    ########\n";
-
-    for (int i = 0; i < level.length(); i++) {
-      char item = level.charAt(i);
-      switch (item) {
-        case '\n':
-          y += CELL_SIZE;
-          if (this.fieldWidth < x) {
-            this.fieldWidth = x;
-          }
-          x = OFFSET;
-          break;
-        case '#':
-          wall = new Wall(x, y);
-          walls.add(wall);
-          x += CELL_SIZE;
-          break;
-        case '$':
-          b = new Baggage(x, y);
-          baggs.add(b);
-          x += CELL_SIZE;
-          break;
-        case '.':
-          a = new Area(x, y);
-          areas.add(a);
-          x += CELL_SIZE;
-          break;
-        case '@':
-          sprite = new Player(x, y);
-          x += CELL_SIZE;
-          break;
-        case ' ':
-          x += CELL_SIZE;
-          break;
-        default:
-          break;
-      }
-      fieldHeigth = y;
-    }
   }
 
   /**
@@ -132,20 +60,6 @@ public class FieldView extends JPanel {
     this.getActionMap().put(action.hashCode(), action);
   }
 
-  /**
-   * @return the field's width (in pixels)
-   */
-  public int getFieldWidth() {
-    return this.fieldWidth;
-  }
-
-  /**
-   * @return the field's height (in pixels)
-   */
-  public int getFieldHeight() {
-    return this.fieldHeigth;
-  }
-
   @Override
   public void paintComponent(Graphics graphics) {
     super.paintComponent(graphics);
@@ -159,38 +73,64 @@ public class FieldView extends JPanel {
    *     the object that's going to be displayed
    */
   private void buildField(Graphics graphics) {
-    graphics.setColor(new Color(250, 240, 170));
+    graphics.setColor(new Color(0, 137, 21));
     graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
 
     ArrayList<MovableComponent> field = new ArrayList<>();
 
-    field.addAll(walls);
-    field.addAll(areas);
-    field.addAll(baggs);
     field.add(sprite);
 
     for (MovableComponent item : field) {
-      if (item instanceof Player || item instanceof Baggage) {
-        graphics.drawImage(item.getImage(), item.x() + 2, item.y() + 2, this);
-      } else {
-        graphics.drawImage(item.getImage(), item.x(), item.y(), this);
-      }
-      final boolean isCompleted = false;
-      if (isCompleted) {
-        graphics.setColor(new Color(0, 0, 0));
-        graphics.drawString("Completed", 25, 20);
+      graphics.drawImage(item.getSprite(), item.getHorizontalPosition() + 2,
+          item.getVerticalPosition() + 2, this);
+    }
+  }
+
+  /**
+   * This class represents the action of playing an audio file.
+   * <p>
+   * For this to work, the audio file must be of wav format.
+   * </p>
+   */
+  private static class PlaySoundAction extends AbstractAction {
+
+    @Override
+    public void actionPerformed(final ActionEvent e) {
+      try {
+        final String AUDIO_PATH = "resources/prfvr.wav";
+        AudioInputStream stream = AudioSystem
+            .getAudioInputStream(new File(AUDIO_PATH).getAbsoluteFile());
+        Clip clip = AudioSystem.getClip();
+        clip.open(stream);
+        clip.start();
+      } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+        ex.printStackTrace();
       }
     }
   }
 
+  /**
+   * This class represents the action of moving a sprite in any direction
+   */
   private abstract class AbstractMoveSpriteAction extends AbstractAction {
 
+    /**
+     * Moves the sprite from it's current location.
+     *
+     * @param horizontalMovement
+     *     the distance it's going to move horizontally
+     * @param verticalMovement
+     *     the distance it's going to move vertically
+     */
     protected void moveSprite(int horizontalMovement, int verticalMovement) {
       sprite.move(horizontalMovement, verticalMovement);
       FieldView.this.repaint();
     }
   }
 
+  /**
+   * This class represents the action of moving down the sprite in one cell
+   */
   private final class MoveSpriteDownAction extends AbstractMoveSpriteAction {
 
     @Override
@@ -199,6 +139,9 @@ public class FieldView extends JPanel {
     }
   }
 
+  /**
+   * This class represents the action of moving up the sprite in one cell
+   */
   private final class MoveSpriteUpAction extends AbstractMoveSpriteAction {
 
     @Override
@@ -207,6 +150,9 @@ public class FieldView extends JPanel {
     }
   }
 
+  /**
+   * This class represents the action of moving right the sprite in one cell
+   */
   private final class MoveSpriteRightAction extends AbstractMoveSpriteAction {
 
     @Override
@@ -215,28 +161,14 @@ public class FieldView extends JPanel {
     }
   }
 
+  /**
+   * This class represents the action of moving left the sprite in one cell
+   */
   private final class MoveSpriteLeftAction extends AbstractMoveSpriteAction {
 
     @Override
     public void actionPerformed(final ActionEvent actionEvent) {
       moveSprite(-CELL_SIZE, 0);
-    }
-  }
-
-  private class PlaySoundAction extends AbstractAction {
-
-    @Override
-    public void actionPerformed(final ActionEvent e) {
-      AudioInputStream stream = null;
-      Clip clip = null;
-      try {
-        stream = AudioSystem.getAudioInputStream(new File(AUDIO_PATH).getAbsoluteFile());
-        clip = AudioSystem.getClip();
-        clip.open(stream);
-        clip.start();
-      } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-        ex.printStackTrace();
-      }
     }
   }
 }
