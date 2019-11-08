@@ -14,7 +14,7 @@ import javax.swing.border.EmptyBorder;
  * Panel containing information about the current game.
  *
  * @author Ignacio Slater Muñoz
- * @version 3.0b11
+ * @version 3.0b12
  * @since 3.0
  */
 public class InfoPane extends JPanel {
@@ -24,13 +24,18 @@ public class InfoPane extends JPanel {
    * and a flow layout.
    */
   public InfoPane() {
-    this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-    Border margin = new EmptyBorder(10, 10, 10, 10);
-    this.setBorder(new CompoundBorder(this.getBorder(), margin));
+    setupLayout();
     JLabel controlsLabel = new JLabel("Controls:");
     controlsLabel.setFont(new Font(controlsLabel.getFont().getName(), Font.BOLD, 16));
     this.add(controlsLabel);
-    this.add(new JLabel("Controls:"));
+    this.add(new JLabel("Arrow keys: Move"));
+    this.add(new JLabel("ENTER: Play sound"));
+  }
+
+  private void setupLayout() {
+    this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+    Border margin = new EmptyBorder(10, 10, 10, 10);
+    this.setBorder(new CompoundBorder(this.getBorder(), margin));
   }
 
   @Override
