@@ -8,7 +8,7 @@ import javax.swing.JPanel;
  * Container for the game views
  *
  * @author Ignacio slater Muñoz (mailto:ignacio.slater@ug.uchile.cl)
- * @version 3.0b9
+ * @version 3.0b10
  * @since 3.0
  */
 public class ViewsContainer extends JPanel {
@@ -32,7 +32,7 @@ public class ViewsContainer extends JPanel {
    */
   private void setupViews() {
     this.add(new LandingView(this));
-    this.add(new FieldView());
+    this.add(new GameView());
   }
 
   /**

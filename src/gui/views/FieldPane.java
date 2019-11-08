@@ -16,10 +16,10 @@ import javax.swing.*;
  * Graphic user interface of the game's main view
  *
  * @author Ignacio Slater Muñoz
- * @version 3.0b9
+ * @version 3.0b10
  * @since 3.0
  */
-public class FieldView extends JPanel {
+public class FieldPane extends JPanel {
 
   /** Each cell is a 128x128 square */
   private final int CELL_SIZE = 128;
@@ -29,7 +29,7 @@ public class FieldView extends JPanel {
   /**
    * Creates the view for the game field.
    */
-  public FieldView() {
+  public FieldPane() {
     setupKeyMappings();
     setFocusable(true);
     final String SPRITE_PATH = "resources/sprite.png";
@@ -124,7 +124,7 @@ public class FieldView extends JPanel {
      */
     protected void moveSprite(int horizontalMovement, int verticalMovement) {
       sprite.move(horizontalMovement, verticalMovement);
-      FieldView.this.repaint();
+      FieldPane.this.repaint();
     }
   }
 
