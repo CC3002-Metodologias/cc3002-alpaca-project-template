@@ -1,5 +1,6 @@
 package gui.views;
 
+import gui.views.game.GameView;
 import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,7 +9,7 @@ import javax.swing.JPanel;
  * Container for the game views
  *
  * @author Ignacio slater Muñoz (mailto:ignacio.slater@ug.uchile.cl)
- * @version 3.0b10
+ * @version 3.0b11
  * @since 3.0
  */
 public class ViewsContainer extends JPanel {

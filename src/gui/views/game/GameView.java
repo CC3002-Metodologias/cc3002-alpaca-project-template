@@ -1,6 +1,5 @@
-package gui.views;
+package gui.views.game;
 
-import javax.swing.JButton;
 import javax.swing.JSplitPane;
 
 /**
@@ -16,7 +15,7 @@ import javax.swing.JSplitPane;
  * </ul>
  *
  * @author Ignacio Slater Muñoz
- * @version 3.0b10
+ * @version 3.0b11
  * @since 3.0
  */
 public class GameView extends JSplitPane {
@@ -26,7 +25,8 @@ public class GameView extends JSplitPane {
    * components side-by-side horizontally, using two buttons for the components.
    */
   public GameView() {
-    super(HORIZONTAL_SPLIT, new FieldPane(), new JButton());
-    super.setDividerLocation(1280 * 3 / 4);
+    super(HORIZONTAL_SPLIT, new FieldPane(), new InfoPane());
+    this.setDividerLocation(1280 * 3 / 4);
+    this.setEnabled(false);
   }
 }

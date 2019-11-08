@@ -1,4 +1,4 @@
-package gui.views;
+package gui.views.game;
 
 import gui.Keys;
 import gui.components.MovableComponent;
@@ -16,7 +16,7 @@ import javax.swing.*;
  * Graphic user interface of the game's main view
  *
  * @author Ignacio Slater Muñoz
- * @version 3.0b10
+ * @version 3.0b11
  * @since 3.0
  */
 public class FieldPane extends JPanel {
