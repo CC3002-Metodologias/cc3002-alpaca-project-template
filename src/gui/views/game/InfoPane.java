@@ -1,5 +1,6 @@
 package gui.views.game;
 
+import gui.Keys;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -13,7 +14,7 @@ import javax.swing.border.EmptyBorder;
  * Panel containing information about the current game.
  *
  * @author Ignacio Slater Muñoz
- * @version 3.0rc1
+ * @version 3.0b13
  * @since 3.0
  */
 public class InfoPane extends JPanel {
@@ -25,6 +26,9 @@ public class InfoPane extends JPanel {
       Color.LIGHT_GRAY,
       Color.WHITE
   };
+  private final String DEFAULT_FONT_NAME = "Dialog";
+  private final int DEFAULT_FONT_SIZE = 12;
+
   private Color paneColor = Color.LIGHT_GRAY;
 
   /**
@@ -49,19 +53,34 @@ public class InfoPane extends JPanel {
    * Creates and places the labels of the pane
    */
   private void setupLabels() {
-    JLabel controlsLabel = new JLabel("Controls:");
-    controlsLabel.setFont(new Font(controlsLabel.getFont().getName(), Font.BOLD, 16));
-    this.add(controlsLabel);
-    this.add(Box.createRigidArea(new Dimension(0, 10)));
+    addLabel("Controls:", 10, DEFAULT_FONT_NAME, 16, Font.BOLD);
+    addLabel("ARROW KEYS: Move", 0, "Helvetica", DEFAULT_FONT_SIZE, Font.PLAIN);
+    addLabel("ENTER: Play sound", 20, "Helvetica", DEFAULT_FONT_SIZE, Font.PLAIN);
+    addLabel("Color picker", 10, DEFAULT_FONT_NAME, 16, Font.BOLD);
+  }
 
-    this.add(new JLabel("ARROW KEYS: Move"));
-    this.add(new JLabel("ENTER: Play sound"));
-    this.add(Box.createRigidArea(new Dimension(0, 20)));
-
-    JLabel colorsLabel = new JLabel("Color picker");
-    colorsLabel.setFont(new Font(colorsLabel.getFont().getName(), Font.BOLD, 16));
-    this.add(colorsLabel);
-    this.add(Box.createRigidArea(new Dimension(0, 10)));
+  /**
+   * Adds a new label to the pane.
+   *
+   * @param text
+   *     the text of the label
+   * @param verticalSpace
+   *     the space between this label and the next element in the pane
+   * @param fontName
+   *     the font to be used
+   * @param fontSize
+   *     the size of the text
+   * @param fontStyle
+   *     the style of the text, it may be one of Font.PLAIN, Font.BOLD or Font.ITALIC
+   */
+  private void addLabel(String text, int verticalSpace, String fontName, int fontSize,
+      int fontStyle) {
+    JLabel label = new JLabel(text);
+    label.setFont(new Font(fontName, fontStyle, fontSize));
+    this.add(label);
+    if (verticalSpace >= 0) {
+      this.add(Box.createRigidArea(new Dimension(0, verticalSpace)));
+    }
   }
 
   /**
@@ -75,15 +94,33 @@ public class InfoPane extends JPanel {
         "Gray",
         "White"
     });
+    colorList.getInputMap().put(KeyStroke.getKeyStroke(Keys.DOWN), "none");
     colorList.setSelectedIndex(0);
     colorList.setLayout(new BoxLayout(colorList, BoxLayout.PAGE_AXIS));
+    removeBindings(colorList, Keys.DOWN, Keys.LEFT, Keys.RIGHT, Keys.UP);
     this.add(colorList);
+
     JButton pickColorBtn = new JButton("Change color");
     pickColorBtn.addActionListener(e -> {
       paneColor = COLORS[colorList.getSelectedIndex()];
       repaint();
     });
     this.add(pickColorBtn);
+  }
+
+  /**
+   * Removes the key bindings of a component.
+   *
+   * @param component
+   *     the component to unbind
+   * @param keys
+   *     the name of the keys that are going to be removed
+   */
+  private void removeBindings(JComponent component, String... keys) {
+    for (String key :
+        keys) {
+      component.getInputMap().put(KeyStroke.getKeyStroke(key), "none");
+    }
   }
 
   @Override
