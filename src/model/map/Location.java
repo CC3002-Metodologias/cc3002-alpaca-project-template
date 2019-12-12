@@ -1,19 +1,27 @@
 package model.map;
 
 import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 import model.units.IUnit;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This class represents a <i>location</i> in the game's map.
  * <p>
- * A location is simply a graph node with connections to all adjacent positions to it. Every node
- * in the graph contains an id that represents it's position, with rows and columns with numbers
- * (just like a cartesian plane), a list of references to all of it's neighbours and a reference to
+ * A location is simply a graph node with connections to all adjacent positions to it.
+ * Every node
+ * in the graph contains an id that represents it's position, with rows and columns with
+ * numbers
+ * (just like a cartesian plane), a list of references to all of it's neighbours and a
+ * reference to
  * the unit that's currently in that position (in case there is one).
  * <p>
- * Note that a structure like this let's it's user implement more complicated maps than a simple
- * chess one, but for simplicity, it will be assumed that the distance between any node and it's
+ * Note that a structure like this let's it's user implement more complicated maps than a
+ * simple
+ * chess one, but for simplicity, it will be assumed that the distance between any node
+ * and it's
  * neighbours will be always 1.
  *
  * @author Ignacio Slater Muñoz
@@ -42,19 +50,15 @@ public class Location {
   }
 
   /**
-   * Checks if a location is equal to another object.
-   * <p>
-   * Two locations are equal when their id's match. It is assumed that there can't be 2 locations
-   * with the same id in the game.
+   * Checks if a cell is adjacent to this one
    *
-   * @param other
-   *     the object to compare this location to
-   * @return <code>true</code> if the id's match; <code>false</code> otherwise
+   * @param otherLocation
+   *     the cell to be checked
+   * @return <code>true</code> if the two locations are adjacent; <code>false</code>
+   *     otherwise
    */
-  @Override
-  public boolean equals(final Object other) {
-    return other instanceof Location && row == ((Location) other).row
-        && column == ((Location) other).column;
+  boolean isNeighbour(final Location otherLocation) {
+    return neighbours.contains(otherLocation);
   }
 
   @Override
@@ -84,14 +88,14 @@ public class Location {
   }
 
   /**
-   * Checks if a cell is adjacent to this one
+   * Calculates the distance from this location to another
    *
-   * @param otherLocation
-   *     the cell to be checked
-   * @return <code>true</code> if the two locations are adjacent; <code>false</code> otherwise
+   * @param otherNode
+   *     the other location
+   * @return the length of the shortest path to the other location
    */
-  boolean isNeighbour(final Location otherLocation) {
-    return neighbours.contains(otherLocation);
+  public double distanceTo(final Location otherNode, int range) {
+    return shortestPathTo(otherNode, range);
   }
 
   /**
@@ -130,34 +134,52 @@ public class Location {
   }
 
   /**
-   * Calculates the distance from this location to another
-   *
-   * @param otherNode
-   *     the other location
-   * @return the length of the shortest path to the other location
-   */
-  public double distanceTo(final Location otherNode) {
-    return shortestPathTo(otherNode, new HashSet<>());
-  }
-
-  /**
    * Gets the shortest path to another node storing a set of already visited nodes
    *
+   * @param otherNode
+   *     the destination node
+   * @param range
+   *     the maximum distance that's gonna be travelled by the algorithm
    * @return the distance between the nodes
    */
-  private double shortestPathTo(final Location otherNode, final Set<Location> visited) {
+  private double shortestPathTo(@NotNull final Location otherNode, int range) {
     if (otherNode.equals(this)) {
       return 0;
     }
-    visited.add(this);
-    double distance = Double.POSITIVE_INFINITY;
-    for (Location node :
-        neighbours) {
-      if (!visited.contains(node)) {
-        distance = Math.min(distance, 1 + node.shortestPathTo(otherNode, new HashSet<>(visited)));
+    Path shortestPath = null;
+    Queue<Path> toVisit = new PriorityQueue<>();
+    toVisit.add(new Path(null, this));
+    while (!toVisit.isEmpty() && shortestPath == null) {
+      final Path candidate = toVisit.poll();
+      final int candidatePriority = candidate.getLength();
+      if (candidate.endsIn(otherNode)) {
+        shortestPath = candidate;
+      } else {
+        for (final Location neighbour : candidate.reachableLocations()) {
+          if (candidatePriority < range) {
+            toVisit.add(new Path(candidate, neighbour));
+          }
+        }
       }
     }
-    return distance;
+    return shortestPath == null ? Double.POSITIVE_INFINITY : shortestPath.getLength();
+  }
+
+  /**
+   * Checks if a location is equal to another object.
+   * <p>
+   * Two locations are equal when their id's match. It is assumed that there can't be 2
+   * locations
+   * with the same id in the game.
+   *
+   * @param other
+   *     the object to compare this location to
+   * @return <code>true</code> if the id's match; <code>false</code> otherwise
+   */
+  @Override
+  public boolean equals(final Object other) {
+    return other instanceof Location && row == ((Location) other).row
+        && column == ((Location) other).column;
   }
 
   /**
@@ -173,5 +195,4 @@ public class Location {
   public int getColumn() {
     return column;
   }
-
 }

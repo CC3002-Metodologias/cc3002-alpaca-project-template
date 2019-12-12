@@ -4,9 +4,6 @@ import gui.views.ViewsContainer;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.HeadlessException;
-import java.io.IOException;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -48,8 +45,7 @@ public class AlpacaEmblem extends JFrame {
    * @throws HeadlessException
    *     when a necessary input/output functionality is missing in the system.
    */
-  private AlpacaEmblem()
-      throws HeadlessException, UnsupportedAudioFileException, IOException, LineUnavailableException {
+  private AlpacaEmblem() throws HeadlessException {
     mainPanel = new ViewsContainer(this);
     setupFrame();
   }
@@ -68,13 +64,8 @@ public class AlpacaEmblem extends JFrame {
    * Creates a new instance of the game and runs it
    */
   private static void run() {
-    AlpacaEmblem game = null;
-    try {
-      game = new AlpacaEmblem();
-      game.setVisible(true);
-    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-      e.printStackTrace();
-    }
+    AlpacaEmblem game = new AlpacaEmblem();
+    game.setVisible(true);
   }
 
   /**

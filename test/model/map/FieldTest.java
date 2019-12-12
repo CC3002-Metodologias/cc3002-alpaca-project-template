@@ -20,9 +20,11 @@ class FieldTest {
   @BeforeEach
   void setUp() {
     map = new Field();
-    map.addCells(true, new Location(0, 0), new Location(0, 1), new Location(0, 2),
-        new Location(1, 0), new Location(1, 1), new Location(1, 2), new Location(2, 0),
-        new Location(2, 1), new Location(2, 2));
+    for (int i = 0; i < 50; i++) {
+      for (int j = 0; j < 50; j++) {
+        map.addCells(true, new Location(i, j));
+      }
+    }
   }
 
   /**
@@ -88,21 +90,21 @@ class FieldTest {
   @Test
   public void testDistances() {
     Location location00 = map.getCell(0, 0);
-    assertEquals(0, location00.distanceTo(location00));
-    assertEquals(1, location00.distanceTo(map.getCell(0, 1)));
-    assertEquals(1, location00.distanceTo(map.getCell(1, 0)));
-    assertEquals(2, location00.distanceTo(map.getCell(0, 2)));
-    assertEquals(2, location00.distanceTo(map.getCell(1, 1)));
-    assertEquals(3, location00.distanceTo(map.getCell(1, 2)));
-    assertEquals(4, location00.distanceTo(map.getCell(2, 2)));
+    assertEquals(0, location00.distanceTo(location00, 0));
+    assertEquals(1, location00.distanceTo(map.getCell(0, 1), 10));
+    assertEquals(1, location00.distanceTo(map.getCell(1, 0), 10));
+    assertEquals(2, location00.distanceTo(map.getCell(0, 2), 10));
+    assertEquals(2, location00.distanceTo(map.getCell(1, 1), 10));
+    assertEquals(3, location00.distanceTo(map.getCell(1, 2), 10));
+    assertEquals(4, location00.distanceTo(map.getCell(2, 2), 10));
 
     Field f = new Field();
-    for (int i = 0; i < 7; i++) {
-      for (int j = 0; j < 7; j++) {
+    for (int i = 0; i < 50; i++) {
+      for (int j = 0; j < 50; j++) {
         f.addCells(false, new Location(i, j));
       }
     }
-    assertEquals(1, f.getCell(0, 0).distanceTo(f.getCell(0, 1)));
+    assertEquals(1, f.getCell(0, 0).distanceTo(f.getCell(0, 1), 7));
   }
 
   @Test
