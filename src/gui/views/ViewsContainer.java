@@ -9,7 +9,7 @@ import javax.swing.JPanel;
  * Container for the game views
  *
  * @author Ignacio slater Muñoz (mailto:ignacio.slater@ug.uchile.cl)
- * @version 3.0b11
+ * @version 3.0-snapshot
  * @since 3.0
  */
 public class ViewsContainer extends JPanel {
@@ -20,7 +20,7 @@ public class ViewsContainer extends JPanel {
    * Creates the container as a panel that can contain multiple cards.
    *
    * @param game
-   *     the main frame of the game
+   *     the main frame of the game.
    */
   public ViewsContainer(final JFrame game) {
     super(new CardLayout());

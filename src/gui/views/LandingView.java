@@ -11,7 +11,7 @@ import javax.swing.JButton;
  * This panel contains a button to move to the next view.
  *
  * @author Ignacio Slater Muñoz (mailto:ignacio.slater@ug.uchile.cl)
- * @version 3.0b9
+ * @version 3.0-snapshot
  * @since 3.0
  */
 public class LandingView extends ImagePanel {
@@ -24,7 +24,7 @@ public class LandingView extends ImagePanel {
    * Creates de landing panel with a background image and a button.
    *
    * @param container
-   *     the container of this panel
+   *     the container of this panel.
    */
   public LandingView(final ViewsContainer container) {
     super(BACKGROUND_IMAGE);
@@ -48,12 +48,12 @@ public class LandingView extends ImagePanel {
   }
 
   /**
-   * Changes the dimensions oh this view's container.
+   * Changes the dimensions of this view's container.
    *
    * @param width
-   *     the new horizontal size of the container
+   *     the new horizontal size of the container.
    * @param height
-   *     the new vertical size of the container
+   *     the new vertical size of the container.
    */
   private void changeContainerDimensions(final int width, final int height) {
     container.changeFrameDimensions(width, height);

@@ -4,12 +4,13 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This class represents a panel with a background image.
  *
- * @author Ignacio Slater Muñoz
- * @version 3.0b5
+ * @author Ignacio Slater Muñoz.
+ * @version 3.0-snapshot
  * @since 3.0
  */
 public class ImagePanel extends JPanel {
@@ -28,7 +29,7 @@ public class ImagePanel extends JPanel {
   }
 
   @Override
-  public void paintComponent(Graphics g) {
+  public void paintComponent(@NotNull Graphics g) {
     g.drawImage(panelBackground, 0, 0, null);
   }
 

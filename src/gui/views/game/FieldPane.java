@@ -16,7 +16,7 @@ import javax.swing.*;
  * Graphic user interface of the game's main view
  *
  * @author Ignacio Slater Muñoz
- * @version 3.0b11
+ * @version 3.0-snapshot
  * @since 3.0
  */
 public class FieldPane extends JPanel {
@@ -76,11 +76,11 @@ public class FieldPane extends JPanel {
     graphics.setColor(new Color(0, 137, 21));
     graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-    ArrayList<MovableComponent> field = new ArrayList<>();
+    ArrayList<MovableComponent> sprites = new ArrayList<>();
 
-    field.add(sprite);
+    sprites.add(sprite);
 
-    for (MovableComponent item : field) {
+    for (MovableComponent item : sprites) {
       graphics.drawImage(item.getSprite(), item.getHorizontalPosition() + 2,
           item.getVerticalPosition() + 2, this);
     }
